@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do App</title>
+
+    <style>
+        *
+        {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        h1{
+            text-decoration: underline;
+            color: blueviolet;
+            font-family: 'Courier New', Courier, monospace;
+            cursor: pointer;
+            width: max-content;
+            height: max-content;
+        }
+        h1:hover{
+            color: white;
+            background-color: black;
+        }
+        .container
+        {
+            margin-top: 20px;
+            background-color: grey;
+            width: 100%;
+            height: 92vh;
+            padding-top: 30px;
+
+        }
+        .container label{
+            font-size: 50px;
+            font-weight: bolder;
+            font-style: italic;
+            text-decoration-line: underline;
+           
+
+        }
+        #input{
+            width: 300px;
+            height: 50px;
+            border-color: black;
+            background-color: white;
+            border: 2px solid;
+            border-radius: 16px;
+            margin-left: 20px;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+        #input::placeholder
+        {
+            text-indent: 10px;
+            font-size: 20px;
+            color: grey;
+        }
+        #addButton
+        {
+            width: 160px;
+            height: 50px;
+            font-size: 25px;
+            color: white;
+            background-color: black;
+            cursor: pointer;
+            border: 2px solid whitesmoke;
+            border-radius: 10px;
+            margin-left: 20px;
+        }
+
+        #addButton:hover
+        {
+            background-color: white;
+            color: black;
+            border-color: black;
+
+        }
+        #list li
+        {
+            list-style: none;
+            padding: 10px;
+            margin: 10px;
+            color: white;
+            background-color: black;
+            font-size: 25px;
+            width: max-content;
+            height: max-content;
+        }
+        #msg
+        {
+            display: none;
+            color: red;
+            font-size: 25px;
+            margin-top: 80px;
+            margin-left: 10%;
+            animation: Mukarram1 5s running ease-in-out 2s forwards;
+
+            /* animation-duration: 5s; */
+            /* animation-iteration-count: 2; */
+            /* animation-direction: forwards;
+            animation-fill-mode: forwards; */
+            /* animation-play-state: running;
+            animation-timing-function: ease-in-out; 
+            animation-delay: 1s; */
+
+        }
+        /* @keyframes msg_animation {
+            0%
+            {
+                color: white;
+                background-color: black;
+                font-size: 20px;
+            }
+            100%
+            {
+                color: brown;
+                background-color: white;
+                font-size: 30px;
+            }
+            
+        } */
+        @keyframes Mukarram1 {
+            from {
+                width: max-content;
+                background: linear-gradient(white, green);
+            }
+
+            to {
+                width: max-content;
+                background: linear-gradient(blue, brown);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1> To-do App</h1>
+
+    <div class="container">
+        <label for="input"> Input: </label>
+        <input type="text" placeholder="Items appear here" id="input" /> 
+        <button id="addButton" onclick="addition()">Add Item</button>
+        <p id="msg">You are not allowed to leave input field empty. Plz fill it.</p>
+        <ul id="list"></ul>
+    </div>
+
+    <script>
+
+
+        function addition()
+        {
+            var input = document.getElementById('input');
+
+            
+            var ul = document.getElementById('list');
+            var list_element = document.createElement('li');
+
+             //Deletion Button Creation:
+
+             var btn_delete = document.createElement('button');
+            btn_delete.innerHTML = 'Delete Item';
+            btn_delete.setAttribute('onclick','Deletion(event)');
+
+
+            // Btn_delete styling through JS:
+            btn_delete.style.color = "Blue";
+            btn_delete.style.backgroundColor = "white";
+            btn_delete.style.borderWidth = "2px"
+            btn_delete.style.borderColor = "black";
+            btn_delete.style.borderStyle = "solid";
+            btn_delete.style.width = '120px';
+            btn_delete.style.height = '50px';
+            btn_delete.style.marginTop = '10px';
+            btn_delete.style.marginLeft = '15px';
+            btn_delete.style.fontSize = "20px";
+
+            // Edit Button Creation:
+
+            var btn_edit = document.createElement('button');
+            btn_edit.innerHTML = 'Edit Item';
+            btn_edit.setAttribute('onclick','Modification(event)');
+
+            // <i onClick="editPost(this)" class="fas fa-edit"></i>
+
+            // Btn_edit styling through JS:
+
+            btn_edit.style.color = "Blue";
+            btn_edit.style.backgroundColor = "white";
+            btn_edit.style.borderWidth = "2px"
+            btn_edit.style.borderColor = "black";
+            btn_edit.style.borderStyle = "solid";
+            btn_edit.style.width = '120px';
+            btn_edit.style.height = '50px';
+            btn_edit.style.marginTop = '10px';
+            btn_edit.style.marginLeft = '15px';
+            btn_edit.style.fontSize = "20px";
+
+
+            list_element.innerHTML = input.value;
+            if(input.value == "")
+            {
+                // alert(" Sorry, you can't leave blank input field.");
+                var msg = document.getElementById('msg');
+                msg.style.display = "block";
+            }
+            else
+            {
+                var msg = document.getElementById('msg');
+                msg.style.display = "none";
+               ul.appendChild(list_element);
+
+            }
+
+            list_element.appendChild(btn_edit);
+            list_element.appendChild(btn_delete);
+           
+            input.value = '';
+        }
+
+        function Deletion(event)
+        {
+            var li = event.target.parentElement;
+            var ul = li.parentElement;
+            ul.removeChild(li);
+        }
+
+        function Modification(event)
+        {
+            var input = document.getElementById('input');
+            
+            console.log(event.target.innerHTML);
+
+            var li = event.target.parentElement;
+            console.log(li)
+
+            console.log(li.firstChild);
+
+             var ul = document.getElementById('list');
+            // var a = ul.textContent;
+        
+            input.value = li.firstChild.textContent;
+            ul.removeChild(li);
+
+
+            // var ul = event.parentElement.parentElement.innerHTML;
+
+             // console.log(list_element.firstChild);
+            // var b = a.slice(0,(list_element.firstChild.length));
+            // console.log(ul);
+            // console.log(a);
+            // console.log(b);
+
+            // var list_element = input.value;
+
+            // input.value = ul
+            // event.parentElement.parentElement.remove();
+
+            // Deletion(event);
+            // input.value = '';
+
+        }
+
+    </script>
+
+<!-- How to get data from local storage: 
+If you refresh the page, you'll note that all of your data is gone. In order to solve that 
+issue, we run a IIFE (Immediately invoked function expression) to retrieve the data from 
+local storage. Follow along: 👇 -->
+
+<!-- (() => {
+  data = JSON.parse(localStorage.getItem("data")) || [];
+  console.log(data);
+  createTasks();
+})(); -->
+    
+</body>
+</html>
